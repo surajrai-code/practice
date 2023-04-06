@@ -1,15 +1,20 @@
+import { Fragment } from 'react';
+import Counter from './componets/Counter';
+import Header from './componets/Header'
+import Auth from './componets/Auth'
+import UserProfile from './componets/UserProfile'
 
+import {authAction} from './Store/index'
 import { useSelector } from 'react-redux';
-import './App.css';
-import CartButton from './components/CartButton';
-import Header from './components/Header';
 function App() {
-const showCart=useSelector(state=>state.ui.cartIsVisible)
+  const isAuth = useSelector(state=>state.Auth.isAuthenticated);
   return (
-    <div className="App">
-    <Header/>
-      {showCart && <CartButton/>}
-    </div>
+    <Fragment>
+      <Header/>
+      {!isAuth && <Auth/>}
+     {isAuth && <UserProfile/>}
+     {isAuth && <Counter />}
+    </Fragment>
   );
 }
 
